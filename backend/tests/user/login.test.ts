@@ -1,17 +1,17 @@
-import request from "supertest"
-import { server } from "./../../structures/server"
+import { exit } from 'process';
+import request from 'supertest'
+import { server } from "../../structures/server"
 describe("Test invalid login.", () => {
     test("It Should not login.", async () => {
         const response = await request(server.express)
-            .post("/")
+            .post("/user/login")
             .set('Accept', 'application/json')
             .expect('Content-Type', /json/)
             .send({
-                username: "Jonh",
-                password: "Doe"
+                username: "",
+                password: ""
             });
-        expect(response.statusCode).toBe(400 || 404);
-
+        expect(response.statusCode).toBe(404)
     });
 });
 
