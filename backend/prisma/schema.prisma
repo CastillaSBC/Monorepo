@@ -1,0 +1,52 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./db.sqlite"
+}
+
+model User {
+  id               String      @id @unique @default(cuid())
+  username         String      @unique
+  email            String?
+  password         String
+  moderated        Boolean     @default(false)
+  moderationReason String      @default("User was moderated without a reason.")
+  moderationEnd    Int         @default(0)
+  posts            Threads[]
+  Responses        Responses[]
+  createdAt        DateTime    @default(now())
+  updatedAt        DateTime    @default(now())
+}
+
+model Threads {
+  id               String      @id @default(cuid())
+  title            String
+  content          String
+  author           User        @relation(fields: [authorId], references: [id])
+  pinned           Boolean     @default(false)
+  moderated        Boolean     @default(false)
+  moderationReason String      @default("This post has been moderated without a reason.")
+  authorId         String
+  createdAt        DateTime    @default(now())
+  updatedAt        DateTime    @default(now())
+  responses        Responses[]
+}
+
+model Responses {
+  id               String   @id @default(cuid())
+  content          String
+  author           User     @relation(fields: [authorId], references: [id])
+  thread           Threads  @relation(fields: [threadId], references: [id])
+  moderated        Boolean  @default(false)
+  moderationReason String   @default("This post has been moderated without a reason.")
+  threadId         String
+  authorId         String
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @default(now())
+}
