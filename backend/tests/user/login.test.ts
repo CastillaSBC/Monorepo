@@ -1,4 +1,3 @@
-import { exit } from 'process';
 import request from 'supertest'
 import { server } from "../../structures/server"
 describe("Test invalid login.", () => {
@@ -13,5 +12,5 @@ describe("Test invalid login.", () => {
             });
         expect(response.statusCode).toBe(404)
     });
-});
+})
 

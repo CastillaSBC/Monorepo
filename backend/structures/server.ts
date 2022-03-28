@@ -6,14 +6,13 @@ import { Logger } from "./logger"
 const logger = Logger.getInstance()
 logger.log("Logger initialized")
 logger.log("thanks")
+
 class App {
     public express: express.Application;
-    public port: number;
     constructor() {
         this.express = express();
         this.middleware();
         this.routes();
-        this.port = parseInt(process.env.PORT!)|| 3000
     }
     middleware() {
         this.express.use(express.json());
@@ -29,8 +28,11 @@ class App {
     }
 
     init(){
-        this.express.listen(this.port, () => {
-            logger.log("Server started on port " + this.port)
+        if(!process.env.APP_PORT){
+            process.env.APP_PORT = `3000`
+        }
+        this.express.listen(parseInt(process.env.APP_PORT), () => {
+            logger.log("Server started on port " + process.env.APP_PORT)
         })
     }
 }
