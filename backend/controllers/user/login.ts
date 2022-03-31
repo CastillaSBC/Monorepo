@@ -7,7 +7,7 @@ export default async function login(req: Request, res: Response) {
     // if the user doesnt exist in the database return
     // if the password is not correct then return
     // if the user exists and the password is correct then return the user
-    const {username, password} = req.body
+    const { username, password } = req.body
     const user = await prisma.user.findUnique({
         where: {
             username: username
@@ -29,7 +29,7 @@ export default async function login(req: Request, res: Response) {
     const token = sign({
         id: user.id,
         ip: req.headers['x-forwarded-for'] || req.socket.remoteAddress
-    }, process.env.JWT_SECRET!, {
+    }, process.env.JWT!, {
         expiresIn: '2h'
     })
 
