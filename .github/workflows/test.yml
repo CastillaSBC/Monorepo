@@ -28,13 +28,13 @@ jobs:
       # Runs a single command using the runners shell
       - name: Install dependencies
         run: |
-              cd backend
+              cd ${GITHUB_WORKSPACE}/backend
               npm install
 
       - name: Prepare the database and env
         run: |
-              npx prisma db push
-              echo "JWT=SUPERSECRETKEY9000" >> .env
+              npx prisma db push --schema  ${GITHUB_WORKSPACE}/backend/prisma/prisma.schema
+              echo "JWT=SUPERSECRETKEY9000" >>  ${GITHUB_WORKSPACE}/backend/.env
 
 
       - name: Test
