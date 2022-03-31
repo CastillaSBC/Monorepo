@@ -26,11 +26,17 @@ jobs:
       - uses: actions/checkout@v3
 
       # Runs a single command using the runners shell
-      - name: CI Test the code.
+      - name: Install dependencies
         run: |
               cd backend
               npm install
+
+      - name: Prepare the database and env
+        run: |
               npx prisma db push
               echo "JWT=SUPERSECRETKEY9000" >> .env
-              npx jest
 
+
+      - name: Test
+        run: |
+              npx jest
