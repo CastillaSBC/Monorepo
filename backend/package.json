@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "npx tsc",
-    "start": "node dist/structures/server.js"
+    "start": "node dist/main.js"
   },
   "keywords": [],
   "author": "",

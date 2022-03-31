@@ -4,8 +4,6 @@ import express from "express"
 import compression from "compression"
 import { Logger } from "./logger"
 const logger = Logger.getInstance()
-logger.log("Logger initialized")
-logger.log("thanks")
 
 class App {
     public express: express.Application;
@@ -38,6 +36,5 @@ class App {
 }
 
 const server = new App()
-server.init()
 
 export {server};
