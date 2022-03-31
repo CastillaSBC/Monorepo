@@ -30,6 +30,7 @@ jobs:
         run: |
               cd backend
               npm install
+              npx prisma db push
               echo "JWT=SUPERSECRETKEY9000" >> .env
               npx jest
 

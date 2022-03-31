@@ -29,7 +29,7 @@ export default async function register(req: Request, response: Response) {
         });
     }
 
-    const newUser = await prisma.user.create({
+    await prisma.user.create({
         data: {
             username: username,
             password: password
@@ -37,8 +37,7 @@ export default async function register(req: Request, response: Response) {
     });
 
     return response.status(200).send({
-        message: "User registered",
-        user: newUser
+        message: "User registered"
     });
 
 }
